@@ -74,7 +74,7 @@
               {{post.title}}
             </h3>
             <p class="excert">
-              {{post.content}}
+              {{post.content|safe}}
             </p>
           </div>
         </div>
@@ -278,7 +278,7 @@
           {% include 'blog/blog-ads.html' %}
 
           {% postcategori %}
-          
+
           <div class="single-sidebar-widget newsletter-widget">
             <h4 class="newsletter-title">Newsletter</h4>
             <p>

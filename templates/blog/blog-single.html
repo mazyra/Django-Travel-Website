@@ -147,12 +147,15 @@
         </div>
         <div class="comment-form">
           <h4>Leave a Comment</h4>
-          <form>
+          <form method="post" action="{% url 'blog:single' pid=post.id %}">
+            {% csrf_token %}
             <div class="form-group form-inline">
               <div class="form-group col-lg-6 col-md-12 name">
+                <input type="hidden" name="post" value="{{post.id}}" >
                 <input
                   type="text"
                   class="form-control"
+                  name="name"
                   id="name"
                   placeholder="Enter Name"
                   onfocus="this.placeholder = ''"
@@ -163,6 +166,7 @@
                 <input
                   type="email"
                   class="form-control"
+                  name="email"
                   id="email"
                   placeholder="Enter email address"
                   onfocus="this.placeholder = ''"
@@ -174,6 +178,7 @@
               <input
                 type="text"
                 class="form-control"
+                name="subject"
                 id="subject"
                 placeholder="Subject"
                 onfocus="this.placeholder = ''"
@@ -191,8 +196,15 @@
                 required=""
               ></textarea>
             </div>
-            <a href="#" class="primary-btn text-uppercase">Post Comment</a>
+            <button type="submit" href="{% url 'blog:single' pid=post.id %}" class="primary-btn text-uppercase">Post Comment</button>
           </form>
+          {% if messages %}
+							<ul class="messages">
+								{% for message in messages %}
+								<li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+								{% endfor %}
+							</ul>
+					{% endif %}
         </div>
       </div>
       <div class="col-lg-4 sidebar-widgets">
@@ -208,7 +220,6 @@
               />
               <button type="submit"><i class="fa fa-search"></i></button>
             </form>
-          </div>
 
           {% include 'blog/blog-writer.html' %}
           

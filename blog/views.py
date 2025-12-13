@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
-from .models import Post
+from .models import Post, Comment
 
 
 def blog_view(request, **kwargs):
@@ -28,7 +28,8 @@ def blog_view(request, **kwargs):
 def blog_single(request, pid):
     post = Post.objects.filter(status=1)
     post = get_object_or_404(post, pk=pid)
-    context = {'post' : post}
+    comments = Comment.objects.filter(post=post.id, approved=True)
+    context = {'post' : post, 'comments' : comments}
     return render(request, 'blog/blog-single.html', context)
 
 # def blog_category(request, cat_name):

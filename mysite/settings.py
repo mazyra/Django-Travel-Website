@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'captcha',
 
     'website.apps.WebsiteConfig',
-    'blog.apps.BlogConfig'
+    'blog.apps.BlogConfig',
+    'accounts.apps.AccountsConfig',
 ]
 
 # sites framework
